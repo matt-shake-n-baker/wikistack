@@ -2,10 +2,15 @@ const express = require('express');
 const morgan = require('morgan');
 const layout = require('./views/main');
 const { db, Page, User } = require('./models');
+const wiki = require('./routes/wiki')
+const users = require('./routes/users')
 
 const port = 3000;
 
 const app = express();
+
+app.use("/wiki", wiki);
+app.use("/users", users);
 
 // MIDDLEWARE
 // logging info middleware
@@ -25,13 +30,11 @@ db.authenticate()
 
 app.get('/', (req,res) => {
     console.log('hello')
-
-    res.send(layout()); //we want res.send(layout())
+    res.redirect('/wiki'); //we want res.send(layout())
 })
 
 const connections = async () => {
     await db.sync({ force: true })
-
     app.listen(port, () => {
         console.log(`listening on ${port}`);
     })
