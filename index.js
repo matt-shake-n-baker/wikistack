@@ -1,12 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
-
-const port = 3000;
+const layout = require('./views/main')
 
 const app = express();
 
-// middleware 
-
+// MIDDLEWARE
 // logging info middleware
 
 app.use(morgan('dev'));
@@ -18,8 +16,12 @@ app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req,res) => {
-    res.send('hello world');
+    console.log('hello')
+
+    res.send(layout()); //we want res.send(layout())
 })
+
+const port = 3000;
 
 app.listen(port, () => {
     console.log(`listening on ${port}`);
