@@ -29,7 +29,6 @@ db.authenticate()
     })
 
 app.get('/', (req,res) => {
-    console.log('hello')
     res.redirect('/wiki'); //we want res.send(layout())
 })
 
